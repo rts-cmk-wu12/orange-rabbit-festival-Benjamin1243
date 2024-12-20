@@ -1,36 +1,64 @@
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { FaRegTrashCan } from "react-icons/fa6";
 import "../styles/components/showOrders.scss"
+import { Link } from "react-router";
 
 export default function ShowOrders({update}){
-   let person = update.update
-  const [updates, setUpdates] = useState(update.update)
-
+   
+  const [person, setPerson] = useState(update.update)
+  const thisElement = useRef("")
   
-    const [data, setData] = useState([])
+    const [data, setData] = useState(update.update)
    
 
     useEffect(()=>{
-         person = JSON.parse(localStorage.getItem("person"))
-        setData(person)
+        
+       
         
         
     }, [])
+    useEffect(()=>{
+         setPerson(update.update)
+         setPerson(JSON.parse(localStorage.getItem("person")))
+       
+        
+        
+    }, [update])
 
+
+    function removeItem(name){
+        const storage = JSON.parse(localStorage.getItem("person"))
+       let newArray = storage.filter(element => {
+            console.log(element.name)
+            if(element.name == name){
+                const index = storage
+                return
+            }else{
+                return element
+            }
+        });
+        console.log(newArray)
+        localStorage.setItem("person", JSON.stringify(newArray))
+        setPerson(JSON.parse(localStorage.getItem("person")))
+    
+    }
     
     return(
-        <section>
+        <section className="allPersons">
             <p>Your participants</p>
             <h2> participant</h2>
             {console.log("her er data " + data)}
-            <button>Submit</button>
-            {data?.map(element => {
+            
+            {person?.map(element => {
                 return(
-                    <section className="person">   
-                   {console.log(element)}
+                    <section ref={thisElement} key={element.name} className="person">   
+                   {}
                         <div className="person__div">
                     <h3 className="person__heading">{element?.name}</h3>
-                    <FaRegTrashCan className="person__text" />
+                    <FaRegTrashCan onClick={()=>{
+                        console.log(thisElement.current)
+                        removeItem(element.name)
+                    }} className="person__text" />
 
 
                     </div>
@@ -49,7 +77,7 @@ export default function ShowOrders({update}){
                 )
                 
             })}
-            
+            <Link className="person__submit" to="">Submit</Link>
         </section>
     )
 }

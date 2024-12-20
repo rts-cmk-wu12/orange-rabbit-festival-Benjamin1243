@@ -1,8 +1,32 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+
+
 .person{
-    border-top: 1px solid red;
-    border-bottom: 1px solid red;
+    display: grid;
+    gap: 2rem;
+    font-family: "Open Sans", serif;
+    width: 400px;
+    border-top: 1px solid rgb(187, 187, 187);
+    border-bottom: 1px solid rgb(187, 187, 187);
     &__div{
      display: flex;
      justify-content: space-between;
+    }
+    &__text{
+        color: gray;
+    }
+    &__submit{
+        font-family: "Open Sans", serif;
+       
+        padding-left: 34px;
+        display: grid;
+        align-content: center;
+        height: 93px;
+        text-decoration: none;
+        background-color: #FF6B00;
+        display: block;
+        color: white;
+        font-size: 18px;
+        align-self: end;
     }
 }
